@@ -5,44 +5,14 @@
 # this stuff is worth it, you can buy me a beer in return
 # ----------------------------------------------------------------------------
 
-# Use phusion/baseimage as base image. To make your builds reproducible, make
-# sure you lock down to a specific version, not to `latest`!
-# See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
-# a list of version numbers.
-#
-# Usage Example : Run One-Off commands
-# where <VERSION> is one of the baseimage-docker version numbers.
-# See : https://github.com/phusion/baseimage-docker#oneshot for more examples.
-#
-#  docker run --rm -t -i phusion/baseimage:<VERSION> /sbin/my_init -- bash -l
-#
-# Thanks to @hqmq_ for the heads up
-FROM phusion/baseimage:0.9.18
-MAINTAINER Nizar Venturini @trenpixster
+FROM ubuntu:12.04.5
+MAINTAINER Adam Kittelson @adamkittelson
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2016-06-21
-
-# Set correct environment variables.
-
-# Setting ENV HOME does not seem to work currently. HOME is unset in Docker container.
-# See bug : https://github.com/phusion/baseimage-docker/issues/119
-#ENV HOME /root
-# Workaround:
-RUN echo /root > /etc/container_environment/HOME
-
-# Regenerate SSH host keys. baseimage-docker does not contain any, so you
-# have to do that yourself. You may also comment out this instruction; the
-# init system will auto-generate one during boot.
-RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
-
-# Baseimage-docker enables an SSH server by default, so that you can use SSH
-# to administer your container. In case you do not want to enable SSH, here's
-# how you can disable it. Uncomment the following:
-#RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
+ENV REFRESHED_AT 2016-06-23
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -60,10 +30,10 @@ WORKDIR /tmp
 # See : https://github.com/phusion/baseimage-docker/issues/58
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-RUN echo "deb http://packages.erlang-solutions.com/ubuntu trusty contrib" >> /etc/apt/sources.list && \
+RUN echo "deb http://packages.erlang-solutions.com/ubuntu precise contrib" >> /etc/apt/sources.list && \
     apt-key adv --fetch-keys http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && \
     apt-get -qq update && apt-get install -y \
-    esl-erlang \
+    esl-erlang=1:19.0 \
     git \
     unzip \
     build-essential \
