@@ -12,7 +12,7 @@ MAINTAINER Adam Kittelson @adamkittelson
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2017-01-05
+ENV REFRESHED_AT 2018-06-06
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -33,7 +33,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN echo "deb http://packages.erlang-solutions.com/ubuntu precise contrib" >> /etc/apt/sources.list && \
     apt-key adv --fetch-keys http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && \
     apt-get -qq update && apt-get install -y \
-    esl-erlang=1:19.1 \
+    esl-erlang=1:19.3 \
     git \
     unzip \
     build-essential \
@@ -42,7 +42,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu precise contrib" >> /e
 
 # Download and Install Specific Version of Elixir
 WORKDIR /elixir
-RUN wget -q https://github.com/elixir-lang/elixir/releases/download/v1.4.0/Precompiled.zip && \
+RUN wget -q https://github.com/elixir-lang/elixir/releases/download/v1.6.5/Precompiled.zip && \
     unzip Precompiled.zip && \
     rm -f Precompiled.zip && \
     ln -s /elixir/bin/elixirc /usr/local/bin/elixirc && \
