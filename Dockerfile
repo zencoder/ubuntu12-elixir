@@ -34,7 +34,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /etc/apt/sources.list && \
   apt-key adv --fetch-keys http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && \
   apt-get -qq update && apt-get install -y \
-  esl-erlang=1:21.2.6-1 \
+  esl-erlang=1:21.3-1 \
   git \
   unzip \
   build-essential \
