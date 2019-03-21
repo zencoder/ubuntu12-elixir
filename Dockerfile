@@ -12,7 +12,7 @@ MAINTAINER Adam Kittelson @adamkittelson
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2019-01-29
+ENV REFRESHED_AT 2019-03-19
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -34,7 +34,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /etc/apt/sources.list && \
   apt-key adv --fetch-keys http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && \
   apt-get -qq update && apt-get install -y \
-  esl-erlang=1:21.3-1 \
+  esl-erlang=1:21.3.1-1 \
   git \
   unzip \
   build-essential \
