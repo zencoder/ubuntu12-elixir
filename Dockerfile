@@ -34,7 +34,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /etc/apt/sources.list && \
   apt-key adv --fetch-keys http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && \
   apt-get -qq update && apt-get install -y \
-  esl-erlang=1:21.3.1-1 \
+  esl-erlang=1:22.0-1 \
   git \
   unzip \
   build-essential \
@@ -43,7 +43,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /et
 
 # Download and Install Specific Version of Elixir
 WORKDIR /elixir
-RUN wget -q https://github.com/elixir-lang/elixir/releases/download/v1.8.1/Precompiled.zip && \
+RUN wget -q https://github.com/elixir-lang/elixir/releases/download/v1.8.2/Precompiled.zip && \
   unzip Precompiled.zip && \
   rm -f Precompiled.zip && \
   ln -s /elixir/bin/elixirc /usr/local/bin/elixirc && \
