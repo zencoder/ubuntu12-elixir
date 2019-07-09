@@ -28,13 +28,15 @@ ENV LC_ALL en_US.UTF-8
 
 WORKDIR /tmp
 
+RUN echo $(openssl version)
+
 # See : https://github.com/phusion/baseimage-docker/issues/58
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /etc/apt/sources.list && \
   apt-key adv --fetch-keys http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && \
   apt-get -qq update && apt-get install -y \
-  esl-erlang=1:22.0.3-1 \
+  esl-erlang=1:22.0.4-1 \
   git \
   unzip \
   build-essential \
