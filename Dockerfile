@@ -45,7 +45,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /et
 
 # Download and Install Specific Version of Elixir
 WORKDIR /elixir
-RUN wget -q https://github.com/elixir-lang/elixir/releases/download/v1.9.0/Precompiled.zip && \
+RUN wget -q https://github.com/elixir-lang/elixir/releases/download/v1.9.1/Precompiled.zip && \
   unzip Precompiled.zip && \
   rm -f Precompiled.zip && \
   ln -s /elixir/bin/elixirc /usr/local/bin/elixirc && \
