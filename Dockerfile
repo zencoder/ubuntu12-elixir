@@ -40,6 +40,7 @@ RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /et
   git \
   unzip \
   build-essential \
+  nodejs \
   wget && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
