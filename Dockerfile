@@ -12,7 +12,7 @@ MAINTAINER Adam Kittelson @adamkittelson
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2019-11-18
+ENV REFRESHED_AT 2020-01-09
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -36,17 +36,16 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /etc/apt/sources.list && \
   apt-key adv --fetch-keys http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && \
   apt-get -qq update && apt-get install -y \
-  esl-erlang=1:22.1.7-1 \
+  esl-erlang=1:22.2.1-1 \
   git \
   unzip \
   build-essential \
-  nodejs \
   wget && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Download and Install Specific Version of Elixir
 WORKDIR /elixir
-RUN wget -q https://github.com/elixir-lang/elixir/releases/download/v1.9.4/Precompiled.zip && \
+RUN wget -q https://github.com/elixir-lang/elixir/releases/download/v1.10.0-rc.0/Precompiled.zip && \
   unzip Precompiled.zip && \
   rm -f Precompiled.zip && \
   ln -s /elixir/bin/elixirc /usr/local/bin/elixirc && \
