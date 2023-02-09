@@ -33,16 +33,6 @@ RUN echo $(openssl version)
 # See : https://github.com/phusion/baseimage-docker/issues/58
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-#RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /etc/apt/sources.list && \
-  #apt-key adv --fetch-keys http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && \
-  #apt-get -qq update && apt-get install -y \
-  #esl-erlang=1:23.0 \
-  #git \
-  #unzip \
-  #build-essential \
-  #wget && \
-  #apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 RUN apt-get -qq update && apt-get install -y \
   git \
   unzip \
