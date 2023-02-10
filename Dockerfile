@@ -12,7 +12,7 @@ MAINTAINER Adam Kittelson @adamkittelson
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2020-01-09
+ENV REFRESHED_AT 2023-08-02
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -33,15 +33,30 @@ RUN echo $(openssl version)
 # See : https://github.com/phusion/baseimage-docker/issues/58
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-RUN echo "deb http://packages.erlang-solutions.com/ubuntu bionic contrib" >> /etc/apt/sources.list && \
-  apt-key adv --fetch-keys http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc && \
-  apt-get -qq update && apt-get install -y \
-  esl-erlang=1:22.2.8-1 \
+RUN apt-get -qq update && apt-get install -y \
   git \
   unzip \
   build-essential \
-  wget && \
+  wget \
+  libncurses5-dev \
+  libncursesw5-dev \
+  autoconf \
+  openssl \
+  libssl-dev \
+  fop \
+  xsltproc \
+  unixodbc-dev \
+  curl && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN wget https://raw.githubusercontent.com/kerl/kerl/master/kerl && \
+  chmod a+x kerl && \
+  mv kerl /usr/local/bin/
+
+RUN kerl build 22.3.4.25 22.3.4.25
+RUN kerl install 22.3.4.25 /bin/22.3.4.25
+RUN . /bin/22.3.4.25/activate
+ENV PATH=/bin/22.3.4.25/lib/erl_interface-3.13.2.2/bin:/bin/22.3.4.25/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Download and Install Specific Version of Elixir
 WORKDIR /elixir
